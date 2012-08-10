@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A427E4DA15D54AE500DBED5F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A427E4D915D54AE500DBED5F /* README.md */; };
 		A429589415D2AB5800BC7077 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = A429589315D2AB5800BC7077 /* NSMutableArray+Shuffle.m */; };
 		A429589915D2C0F600BC7077 /* LCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A429589715D2C0F600BC7077 /* LCLoginViewController.m */; };
 		A429589A15D2C0F600BC7077 /* LCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A429589815D2C0F600BC7077 /* LCLoginViewController.xib */; };
@@ -73,6 +74,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A427E4D915D54AE500DBED5F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		A429589215D2AB5800BC7077 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		A429589315D2AB5800BC7077 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		A429589615D2C0F600BC7077 /* LCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCLoginViewController.h; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				A4C4EF5E15D1361E00EE162F /* Le Code */,
 				A4C4EF5715D1361E00EE162F /* Frameworks */,
 				A4C4EF5515D1361E00EE162F /* Products */,
+				A427E4D915D54AE500DBED5F /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -479,6 +482,7 @@
 				A4C4F07015D14EF000EE162F /* LCMusicPlayerViewController.xib in Resources */,
 				A429589A15D2C0F600BC7077 /* LCLoginViewController.xib in Resources */,
 				A42958A115D2C2AA00BC7077 /* LCLoginWindowController.xib in Resources */,
+				A427E4DA15D54AE500DBED5F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

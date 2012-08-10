@@ -57,7 +57,6 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     [self.windowController logout:^{
         
         [self.windowController close];
-        self.windowController = nil;
         
         self.loginWindowController = [[LCLoginWindowController alloc] initWithWindowNibName:kLoginWindowControllerNibName];
         [self.loginWindowController showWindow:nil];
