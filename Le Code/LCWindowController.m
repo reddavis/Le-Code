@@ -41,7 +41,6 @@
 - (void)logout:(void (^)(void))completionBlock {
     
     [self.spotifySession logout:^{
-        
         completionBlock();
     }];
 }
@@ -76,6 +75,7 @@
     
     [self.musicPlayerViewController.pauseButton setHidden:NO];
     [self.musicPlayerViewController.playButton setHidden:YES];
+    [self.musicPlayerViewController.skipButton setHidden:NO];
     [self.playbackManager unPause];
 }
 

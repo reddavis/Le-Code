@@ -19,10 +19,13 @@
 
 - (void)awakeFromNib {
     
+    LCStyledView *view = (LCStyledView *)self.view;
+    view.backgroundColor = [NSColor whiteColor];
+    
     [self.spinner startAnimation:nil];
     
-    self.trayView.backgroundColor = [NSColor blackColor];
-    [self.trayView setAlphaValue:0.85];
+    [self.trayView setWantsLayer:YES];
+    self.trayView.backgroundColor = [NSColor colorWithDeviceWhite:0.0 alpha:0.8];
 }
 
 #pragma mark - Actions
