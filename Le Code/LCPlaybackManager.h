@@ -28,4 +28,5 @@
 @optional
 - (void)playbackManagerHasLoadedTracks:(LCPlaybackManager *)playbackManager;
 - (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrack:(SPTrack *)track;
+- (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrackPosition:(NSTimeInterval)timeInterval;
 @end

@@ -23,6 +23,7 @@
 - (void)windowDidLoad {
         
     [super windowDidLoad];
+    [self.window setMovableByWindowBackground:YES];
     
     self.musicPlayerViewController = [[LCMusicPlayerViewController alloc] initWithNibName:@"LCMusicPlayerViewController" bundle:nil];
     self.musicPlayerViewController.view.frame = self.view.frame;
@@ -83,12 +84,17 @@
     
     [self.musicPlayerViewController.spinner startAnimation:nil];
     
-    [SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-        
-        NSImage *albumArtwork = track.album.cover.image;
-        self.musicPlayerViewController.albumArtworkImageView.image = albumArtwork;
-        [self.musicPlayerViewController.spinner stopAnimation:nil];
-    }];
+    [self.musicPlayerViewController updateViewWithTrack:track];
+    [self.musicPlayerViewController.spinner stopAnimation:nil];
+    [self.musicPlayerViewController.pauseButton setHidden:NO];
+    [self.musicPlayerViewController.playButton setHidden:YES];
+}
+
+- (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrackPosition:(NSTimeInterval)timeInterval {
+    
+    CGFloat minutes = timeInterval/60.0;
+    NSString *minuteString = [NSString stringWithFormat:@"%.2f", minutes];
+    self.musicPlayerViewController.trackTimeTextField.stringValue = minuteString;
 }
 
 - (void)playbackManagerWillStartPlayingAudio:(SPPlaybackManager *)aPlaybackManager {

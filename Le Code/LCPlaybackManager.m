@@ -38,6 +38,7 @@
         
         self.playbackSession.playbackDelegate = self;
         [self addObserver:self forKeyPath:@"playlist.loaded" options:0 context:nil];
+        [self addObserver:self forKeyPath:@"trackPosition" options:0 context:nil];
         [self loadPlaylist];
     }
     
@@ -47,6 +48,7 @@
 - (void)dealloc {
     
     [self removeObserver:self forKeyPath:@"playlist.loaded"];
+    [self removeObserver:self forKeyPath:@"trackPosition"];
 }
 
 #pragma mark -
@@ -157,13 +159,18 @@
             [self loadTracks];
         }
     }
+    else if ([keyPath isEqualToString:@"trackPosition"]) {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playbackManager:didChangeTrackPosition:)]) {
+            [self.delegate playbackManager:self didChangeTrackPosition:self.trackPosition];
+        }
+    }
 }
 
 #pragma mark - SPSessionPlaybackDelegate
 
 - (void)sessionDidEndPlayback:(id<SPSessionPlaybackProvider>)aSession {
     
-    NSLog(@"session finished playback");
     self.currentTrack = [self nextTrack];
     [self playTrack:self.currentTrack];
 }

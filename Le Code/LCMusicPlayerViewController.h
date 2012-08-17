@@ -7,6 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LCImageView.h"
+#import <CocoaLibSpotify/CocoaLibSpotify.h>
+
 
 @class LCStyledView;
 @protocol LCMusicPlayerViewControllerDelegate;
@@ -15,16 +18,20 @@
 @interface LCMusicPlayerViewController : NSViewController
 
 @property (assign, nonatomic) id <LCMusicPlayerViewControllerDelegate> delegate;
-@property (weak, nonatomic) IBOutlet NSImageView *albumArtworkImageView;
+@property (weak, nonatomic) IBOutlet LCImageView *albumArtworkImageView;
 @property (weak, nonatomic) IBOutlet NSProgressIndicator *spinner;
 @property (weak, nonatomic) IBOutlet NSButton *pauseButton;
 @property (weak, nonatomic) IBOutlet NSButton *playButton;
 @property (weak, nonatomic) IBOutlet NSButton *skipButton;
-@property (weak, nonatomic) IBOutlet LCStyledView *trayView;
+@property (weak, nonatomic) IBOutlet NSTextField *trackTitleTextField;
+@property (weak, nonatomic) IBOutlet NSTextField *bandNameTextField;
+@property (weak, nonatomic) IBOutlet NSTextField *trackTimeTextField;
 
 - (IBAction)pauseButtonClicked:(id)sender;
 - (IBAction)playButtonClicked:(id)sender;
 - (IBAction)skipButtonClicked:(id)sender;
+
+- (void)updateViewWithTrack:(SPTrack *)track;
 
 @end
 
