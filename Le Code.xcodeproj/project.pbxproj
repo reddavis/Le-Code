@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4086AA615E2B3330047B996 /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A4C4F06115D14D5400EE162F /* CocoaLibSpotify.framework */; };
+		A4086AA715E2B3450047B996 /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C4F06115D14D5400EE162F /* CocoaLibSpotify.framework */; };
 		A427E4DA15D54AE500DBED5F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A427E4D915D54AE500DBED5F /* README.md */; };
 		A427E4EA15DE53A500DBED5F /* LCImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A427E4E915DE53A500DBED5F /* LCImageView.m */; };
 		A427E4F515DE553400DBED5F /* bar.png in Resources */ = {isa = PBXBuildFile; fileRef = A427E4EB15DE553400DBED5F /* bar.png */; };
@@ -41,8 +43,6 @@
 		A4C4EF6F15D1361E00EE162F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C4EF6D15D1361E00EE162F /* MainMenu.xib */; };
 		A4C4EF7A15D1376200EE162F /* LCWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C4EF7815D1376200EE162F /* LCWindowController.m */; };
 		A4C4EF7B15D1376200EE162F /* LCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C4EF7915D1376200EE162F /* LCWindowController.xib */; };
-		A4C4F03515D1480100EE162F /* CocoaLibSpotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C4F03415D1480100EE162F /* CocoaLibSpotify.framework */; };
-		A4C4F05215D14B6400EE162F /* CocoaLibSpotify.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A4C4F03415D1480100EE162F /* CocoaLibSpotify.framework */; };
 		A4C4F06915D14E7A00EE162F /* appkey.c in Sources */ = {isa = PBXBuildFile; fileRef = A4C4F06815D14E7A00EE162F /* appkey.c */; };
 		A4C4F06F15D14EF000EE162F /* LCMusicPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C4F06D15D14EF000EE162F /* LCMusicPlayerViewController.m */; };
 		A4C4F07015D14EF000EE162F /* LCMusicPlayerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C4F06E15D14EF000EE162F /* LCMusicPlayerViewController.xib */; };
@@ -79,11 +79,11 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		A4C4F05115D14B5C00EE162F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A4C4F05215D14B6400EE162F /* CocoaLibSpotify.framework in CopyFiles */,
+				A4086AA615E2B3330047B996 /* CocoaLibSpotify.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,7 +141,6 @@
 		A4C4EF7715D1376200EE162F /* LCWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCWindowController.h; sourceTree = "<group>"; };
 		A4C4EF7815D1376200EE162F /* LCWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCWindowController.m; sourceTree = "<group>"; };
 		A4C4EF7915D1376200EE162F /* LCWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LCWindowController.xib; sourceTree = "<group>"; };
-		A4C4F03415D1480100EE162F /* CocoaLibSpotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLibSpotify.framework; path = "../../../Library/Developer/Xcode/DerivedData/Le_Code-eghsnudufcqyqpdyrlpnjvfzfdef/Build/Products/Debug/CocoaLibSpotify.framework"; sourceTree = "<group>"; };
 		A4C4F05715D14D5400EE162F /* CocoaLibSpotify Mac Framework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CocoaLibSpotify Mac Framework.xcodeproj"; path = "Cocoa Spotify/Mac Framework/CocoaLibSpotify Mac Framework.xcodeproj"; sourceTree = "<group>"; };
 		A4C4F06815D14E7A00EE162F /* appkey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = appkey.c; sourceTree = "<group>"; };
 		A4C4F06C15D14EF000EE162F /* LCMusicPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCMusicPlayerViewController.h; sourceTree = "<group>"; };
@@ -165,7 +164,7 @@
 				A427E52215DE9B6A00DBED5F /* QuartzCore.framework in Frameworks */,
 				A49971F315D172CA00AA14E9 /* AudioToolbox.framework in Frameworks */,
 				A4C4EF5915D1361E00EE162F /* Cocoa.framework in Frameworks */,
-				A4C4F03515D1480100EE162F /* CocoaLibSpotify.framework in Frameworks */,
+				A4086AA715E2B3450047B996 /* CocoaLibSpotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +296,6 @@
 			isa = PBXGroup;
 			children = (
 				A4C4F05715D14D5400EE162F /* CocoaLibSpotify Mac Framework.xcodeproj */,
-				A4C4F03415D1480100EE162F /* CocoaLibSpotify.framework */,
 				A4C4EF5E15D1361E00EE162F /* Le Code */,
 				A4C4EF5715D1361E00EE162F /* Frameworks */,
 				A4C4EF5515D1361E00EE162F /* Products */,
@@ -700,7 +698,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Le_Code-eghsnudufcqyqpdyrlpnjvfzfdef/Build/Products/Debug\"",
-					$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks,
+					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Le Code/Le Code-Prefix.pch";
@@ -719,7 +717,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Le_Code-eghsnudufcqyqpdyrlpnjvfzfdef/Build/Products/Debug\"",
-					$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks,
+					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Le Code/Le Code-Prefix.pch";
