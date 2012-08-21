@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface MediaKeyApplication : NSApplication
+@end
 
 @interface LCAppDelegate : NSObject <NSApplicationDelegate>
 
