@@ -9,6 +9,7 @@
 #import "LCMusicPlayerViewController.h"
 #import "LCStyledView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "LCConstants.h"
 
 
 @interface LCMusicPlayerViewController ()
@@ -43,6 +44,9 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     
     [self.pauseButton setAlphaValue:0.0];
     [self.playButton setAlphaValue:0.0];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skipButtonClicked:) name:kPlayNextTrackNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playPauseMediaKeyPressed) name:kPlayPauseNotification object:nil];
 }
 
 - (void)dealloc {
@@ -88,6 +92,14 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
 }
 
 #pragma mark - Actions
+
+- (void) playPauseMediaKeyPressed {
+	if ([self.playButton isHidden]){
+		[self pauseButtonClicked:nil];
+	} else {
+		[self playButtonClicked:nil];
+	}
+}
 
 - (void)pauseButtonClicked:(id)sender {
     

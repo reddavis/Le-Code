@@ -1,0 +1,3 @@
+[submodule "Le Code/SPMediaKeyTap"]
+	path = Le Code/SPMediaKeyTap
+	url = git://github.com/nevyn/SPMediaKeyTap.git
