@@ -14,5 +14,6 @@
 @interface LCAppDelegate : NSObject <NSApplicationDelegate>
 
 - (IBAction)logoutMenuItemClicked:(id)sender;
+- (IBAction)choosePlaylistMenuItemClicked:(id)sender;
 
 @end

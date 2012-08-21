@@ -53,6 +53,8 @@
 		F4D7B16115E3A15100E1D3AC /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7B16015E3A15100E1D3AC /* SPMediaKeyTap.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F4D7B16315E3A16100E1D3AC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4D7B16215E3A16100E1D3AC /* Carbon.framework */; };
 		F4D7B16A15E3A18400E1D3AC /* NSObject+SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7B16915E3A18400E1D3AC /* NSObject+SPInvocationGrabbing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F4D7B17A15E3BA3A00E1D3AC /* LCSelectPlaylistPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D7B17915E3BA3A00E1D3AC /* LCSelectPlaylistPanel.m */; };
+		F4D7B17C15E3BACD00E1D3AC /* LCSelectPlaylistPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D7B17B15E3BACD00E1D3AC /* LCSelectPlaylistPanel.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,9 @@
 		F4D7B16215E3A16100E1D3AC /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		F4D7B16815E3A18400E1D3AC /* NSObject+SPInvocationGrabbing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SPInvocationGrabbing.h"; path = "SPMediaKeyTap/SPInvocationGrabbing/NSObject+SPInvocationGrabbing.h"; sourceTree = "<group>"; };
 		F4D7B16915E3A18400E1D3AC /* NSObject+SPInvocationGrabbing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SPInvocationGrabbing.m"; path = "SPMediaKeyTap/SPInvocationGrabbing/NSObject+SPInvocationGrabbing.m"; sourceTree = "<group>"; };
+		F4D7B17815E3BA3A00E1D3AC /* LCSelectPlaylistPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCSelectPlaylistPanel.h; sourceTree = "<group>"; };
+		F4D7B17915E3BA3A00E1D3AC /* LCSelectPlaylistPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCSelectPlaylistPanel.m; sourceTree = "<group>"; };
+		F4D7B17B15E3BACD00E1D3AC /* LCSelectPlaylistPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LCSelectPlaylistPanel.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +388,7 @@
 				A4C4F06E15D14EF000EE162F /* LCMusicPlayerViewController.xib */,
 				A4C4EF7915D1376200EE162F /* LCWindowController.xib */,
 				A4C4EF6D15D1361E00EE162F /* MainMenu.xib */,
+				F4D7B17B15E3BACD00E1D3AC /* LCSelectPlaylistPanel.xib */,
 			);
 			name = Xibs;
 			sourceTree = "<group>";
@@ -392,6 +398,7 @@
 			children = (
 				A429589C15D2C29500BC7077 /* Login Window */,
 				A429589B15D2C28C00BC7077 /* Main Window */,
+				F4D7B17715E3BA0B00E1D3AC /* Select Playlist */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -496,6 +503,15 @@
 			name = SPMediaKeyTap;
 			sourceTree = "<group>";
 		};
+		F4D7B17715E3BA0B00E1D3AC /* Select Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				F4D7B17815E3BA3A00E1D3AC /* LCSelectPlaylistPanel.h */,
+				F4D7B17915E3BA3A00E1D3AC /* LCSelectPlaylistPanel.m */,
+			);
+			name = "Select Playlist";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -594,6 +610,7 @@
 				A427E4FE15DE553400DBED5F /* separator@2x.png in Resources */,
 				A427E50115DE5A4A00DBED5F /* next.png in Resources */,
 				A427E50215DE5A4A00DBED5F /* next@2x.png in Resources */,
+				F4D7B17C15E3BACD00E1D3AC /* LCSelectPlaylistPanel.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +641,7 @@
 				A427E52015DE7E0000DBED5F /* LCWindowContentView.m in Sources */,
 				F4D7B16115E3A15100E1D3AC /* SPMediaKeyTap.m in Sources */,
 				F4D7B16A15E3A18400E1D3AC /* NSObject+SPInvocationGrabbing.m in Sources */,
+				F4D7B17A15E3BA3A00E1D3AC /* LCSelectPlaylistPanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
