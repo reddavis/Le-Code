@@ -9,3 +9,6 @@
 #import "LCConstants.h"
 
 NSString *const kLoggedInSuccessfulyNotification = @"com.lecode.loggedInSuccessfuly";
+NSString *const kPlayNextTrackNotification = @"com.lecode.playNextTrack";
+NSString *const kPlayPauseNotification = @"com.lecode.playPauseTrack";
+NSString *const kPlayPreviousTrackNotification = @"com.lecode.playPreviousTrack";
