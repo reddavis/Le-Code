@@ -23,6 +23,8 @@
 - (IBAction)savePlaylist:(id)sender {
 	[[NSUserDefaults standardUserDefaults] setObject:self.playlistField.stringValue forKey:kPlaylistUserDefaultsKey];
 	[[NSApplication sharedApplication] endSheet:self.window];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:kPlaylistChangedNotification object:nil];
 }
 
 @end
