@@ -13,7 +13,7 @@
 #import "LCUserPreferences.h"
 #import "SPMediaKeyTap.h"
 
-@interface LCAppDelegate ()
+@interface LCAppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) LCWindowController *windowController;
 @property (strong, nonatomic) LCLoginWindowController *loginWindowController;
@@ -64,6 +64,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 	
 	if ([[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey] == nil){
 		[[NSUserDefaults standardUserDefaults] setObject:@"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp" forKey:kPlaylistUserDefaultsKey];
+	}
+
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil){
+		[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 	}
 }
 
@@ -134,6 +138,13 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 				break;
 		}
 	}
+}
+
+# pragma mark - NSUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
+	// We do this so there is not a backlog of notifications in Notification Center
+	[center removeAllDeliveredNotifications];
 }
 
 @end
