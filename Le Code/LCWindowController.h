@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet NSView *view;
 
 - (void)logout:(void (^)(void))completionBlock;
+- (void)showSelectPlaylistPanel:(id)sender;
 
 @end

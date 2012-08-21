@@ -12,3 +12,4 @@ NSString *const kLoggedInSuccessfulyNotification = @"com.lecode.loggedInSuccessf
 NSString *const kPlayNextTrackNotification = @"com.lecode.playNextTrack";
 NSString *const kPlayPauseNotification = @"com.lecode.playPauseTrack";
 NSString *const kPlayPreviousTrackNotification = @"com.lecode.playPreviousTrack";
+NSString *const kPlaylistUserDefaultsKey = @"com.lecode.playlist";

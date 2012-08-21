@@ -80,6 +80,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     }];
 }
 
+- (void)choosePlaylistMenuItemClicked:(id)sender {
+	[self.windowController showSelectPlaylistPanel:sender];
+}
+
 #pragma mark - Notification
 
 - (void)loggedInSuccessfulyNotification:(NSNotification *)notification {
