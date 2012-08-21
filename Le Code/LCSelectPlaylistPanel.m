@@ -8,38 +8,39 @@
 
 #import "LCSelectPlaylistPanel.h"
 #import "LCConstants.h"
+#import <CocoaLibSpotify/CocoaLibSpotify.h>
 
 @interface LCSelectPlaylistPanel () <NSTextFieldDelegate>
-@property (strong, nonatomic) IBOutlet NSTextField *playlistField;
+@property (strong, nonatomic) IBOutlet NSPopUpButton *playlistSelect;
 @end
 
 
 @implementation LCSelectPlaylistPanel
 
 - (void) awakeFromNib {
-	[self.playlistField setStringValue:[[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey]];
+	
+	NSString *selectedPlaylist = [[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey];
+	
+	for (SPPlaylist *playlist in [[[SPSession sharedSession] userPlaylists] playlists]){
+		[self.playlistSelect addItemWithTitle:playlist.name];
+		if ([[playlist.spotifyURL absoluteString] isEqualToString:selectedPlaylist]){
+			[self.playlistSelect selectItemWithTitle:playlist.name];
+		}
+	}
 }
 
 - (IBAction)savePlaylist:(id)sender {
-	[[NSUserDefaults standardUserDefaults] setObject:self.playlistField.stringValue forKey:kPlaylistUserDefaultsKey];
+	
+	SPPlaylist *selectedPlaylist = [[[[SPSession sharedSession] userPlaylists] playlists] objectAtIndex:[self.playlistSelect indexOfSelectedItem]];
+		
+	[[NSUserDefaults standardUserDefaults] setObject:[[selectedPlaylist spotifyURL] absoluteString] forKey:kPlaylistUserDefaultsKey];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kPlaylistChangedNotification object:nil];
 	[self hidePanel];
 }
 
 - (void) hidePanel {
 	[[NSApplication sharedApplication] endSheet:self.window];
-}
-
-- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
-{
-	if ([NSStringFromSelector(commandSelector) isEqualToString:@"cancel:"]){
-		[self hidePanel];
-		return YES;
-	} else if ([NSStringFromSelector(commandSelector) isEqualToString:@"insertNewline:"]){
-		[self savePlaylist:control];
-		return YES;
-	}
-	return NO;
 }
 
 @end
