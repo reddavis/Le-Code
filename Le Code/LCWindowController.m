@@ -88,6 +88,15 @@
     [self.musicPlayerViewController.spinner stopAnimation:nil];
     [self.musicPlayerViewController.pauseButton setHidden:NO];
     [self.musicPlayerViewController.playButton setHidden:YES];
+	
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil){	
+		NSUserNotification *notification = [[NSUserNotification alloc] init];
+		[notification setHasActionButton:NO];
+		[notification setTitle:track.name];
+		[notification setSubtitle:track.consolidatedArtists];
+		
+		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+	}
 }
 
 - (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrackPosition:(NSTimeInterval)timeInterval {
