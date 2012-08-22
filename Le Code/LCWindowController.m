@@ -7,13 +7,14 @@
 //
 
 #import "LCWindowController.h"
-
+#import "LCSelectPlaylistPanel.h"
 
 @interface LCWindowController ()
 
 @property (strong, nonatomic) LCMusicPlayerViewController *musicPlayerViewController;
 @property (readonly, nonatomic) SPSession *spotifySession;
 @property (strong, nonatomic) LCPlaybackManager *playbackManager;
+@property (strong, nonatomic) LCSelectPlaylistPanel *selectPlaylistPanel;
 
 @end
 
@@ -44,6 +45,22 @@
     [self.spotifySession logout:^{
         completionBlock();
     }];
+}
+
+- (void)showSelectPlaylistPanel:(id)sender {
+	if (self.selectPlaylistPanel == nil){
+		self.selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
+	}
+	
+	[[NSApplication sharedApplication] beginSheet:self.selectPlaylistPanel.window
+								   modalForWindow:self.window
+									modalDelegate:self
+								   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
+									  contextInfo:nil];
+}
+
+- (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+	[sheet orderOut:nil];
 }
 
 #pragma mark - Helpers

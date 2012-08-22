@@ -61,6 +61,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     self.loginWindowController = [[LCLoginWindowController alloc] initWithWindowNibName:kLoginWindowControllerNibName];
     [self.loginWindowController showWindow:nil];
 	[self registerMediaKeys];
+	
+	if ([[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey] == nil){
+		[[NSUserDefaults standardUserDefaults] setObject:@"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp" forKey:kPlaylistUserDefaultsKey];
+	}
 }
 
 #pragma mark - Actions
@@ -78,6 +82,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
         self.loginWindowController = [[LCLoginWindowController alloc] initWithWindowNibName:kLoginWindowControllerNibName];
         [self.loginWindowController showWindow:nil];
     }];
+}
+
+- (void)choosePlaylistMenuItemClicked:(id)sender {
+	[self.windowController showSelectPlaylistPanel:sender];
 }
 
 #pragma mark - Notification

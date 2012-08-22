@@ -8,7 +8,7 @@
 
 #import "LCPlaybackManager.h"
 #import "NSMutableArray+Shuffle.h"
-
+#import "LCConstants.h"
 
 @interface LCPlaybackManager ()
 
@@ -40,6 +40,8 @@
         [self addObserver:self forKeyPath:@"playlist.loaded" options:0 context:nil];
         [self addObserver:self forKeyPath:@"trackPosition" options:0 context:nil];
         [self loadPlaylist];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playlistChanged) name:kPlaylistChangedNotification object:nil];
     }
     
     return self;
@@ -49,15 +51,26 @@
     
     [self removeObserver:self forKeyPath:@"playlist.loaded"];
     [self removeObserver:self forKeyPath:@"trackPosition"];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark -
 
 - (void)loadPlaylist {
     
-    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:@"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp"] inSession:self.playbackSession callback:^(SPPlaylist *playlist) {
+    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey]] inSession:self.playbackSession callback:^(SPPlaylist *playlist) {
         self.playlist = playlist;
     }];
+}
+
+- (void) playlistChanged {
+	if (![self.playlist.spotifyURL.absoluteString isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey]]){
+		[self pause];
+		self.playlist = nil;
+		self.tracks = nil;
+		self.currentTrack = nil;
+		[self loadPlaylist];
+	}
 }
 
 - (void)loadTracks {
