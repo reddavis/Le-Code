@@ -52,6 +52,8 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
 - (void)dealloc {
     
     [self.view removeTrackingRect:self.trackingTag];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark -
