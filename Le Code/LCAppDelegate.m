@@ -13,11 +13,30 @@
 #import "LCUserPreferences.h"
 #import "SPMediaKeyTap.h"
 
+
+@implementation MediaKeyApplication
+
+- (void)sendEvent:(NSEvent *)theEvent {
+    
+	// If event tap is not installed, handle events that reach the app instead
+	BOOL shouldHandleMediaKeyEventLocally = ![SPMediaKeyTap usesGlobalMediaKeyTap];
+	
+	if (shouldHandleMediaKeyEventLocally && [theEvent type] == NSSystemDefined && [theEvent subtype] == SPSystemDefinedEventMediaKeys) {
+		[(id)self.delegate mediaKeyTap:nil receivedMediaKeyEvent:theEvent];
+	}
+    
+	[super sendEvent:theEvent];
+}
+
+@end
+
+
 @interface LCAppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) LCWindowController *windowController;
 @property (strong, nonatomic) LCLoginWindowController *loginWindowController;
 @property (strong, nonatomic) SPMediaKeyTap *keyTap;
+@property (readonly, nonatomic) LCUserPreferences *userPreferences;
 
 - (void)loggedInSuccessfulyNotification:(NSNotification *)notification;
 
@@ -26,21 +45,6 @@
 
 static NSString *const kWindowControllerNibName = @"LCWindowController";
 static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController";
-
-
-@implementation MediaKeyApplication
-
-- (void)sendEvent:(NSEvent *)theEvent
-{
-	// If event tap is not installed, handle events that reach the app instead
-	BOOL shouldHandleMediaKeyEventLocally = ![SPMediaKeyTap usesGlobalMediaKeyTap];
-	
-	if(shouldHandleMediaKeyEventLocally && [theEvent type] == NSSystemDefined && [theEvent subtype] == SPSystemDefinedEventMediaKeys) {
-		[(id)[self delegate] mediaKeyTap:nil receivedMediaKeyEvent:theEvent];
-	}
-	[super sendEvent:theEvent];
-}
-@end
 
 
 @implementation LCAppDelegate
@@ -62,11 +66,11 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     [self.loginWindowController showWindow:nil];
 	[self registerMediaKeys];
 	
-	if ([[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey] == nil){
-		[[NSUserDefaults standardUserDefaults] setObject:@"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp" forKey:kPlaylistUserDefaultsKey];
-	}
+	if (!self.userPreferences.selectedPlaylist) {
+        self.userPreferences.selectedPlaylist = @"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp";
+    }
 
-	if (NSClassFromString(@"NSUserNotificationCenter") != nil){
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil) {
 		[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 	}
 }
@@ -89,6 +93,7 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 }
 
 - (void)choosePlaylistMenuItemClicked:(id)sender {
+    
 	[self.windowController showSelectPlaylistPanel:sender];
 }
 
@@ -102,19 +107,20 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     [self.windowController showWindow:nil];
 }
 
-- (void) registerMediaKeys {
+- (void)registerMediaKeys {
 	
 	[[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
 															 [SPMediaKeyTap defaultMediaKeyUserBundleIdentifiers], kMediaKeyUsingBundleIdentifiersDefaultsKey,
 															 nil]];
 	
 	self.keyTap = [[SPMediaKeyTap alloc] initWithDelegate:self];
-	if([SPMediaKeyTap usesGlobalMediaKeyTap]){
+	if ([SPMediaKeyTap usesGlobalMediaKeyTap]) {
 		[self.keyTap startWatchingMediaKeys];
 	}
 }
 
 - (void)mediaKeyTap:(SPMediaKeyTap*)keyTap receivedMediaKeyEvent:(NSEvent*)event {
+    
 	NSAssert([event type] == NSSystemDefined && [event subtype] == SPSystemDefinedEventMediaKeys, @"Unexpected NSEvent in mediaKeyTap:receivedMediaKeyEvent:");
 	// here be dragons...
 	int keyCode = (([event data1] & 0xFFFF0000) >> 16);
@@ -138,6 +144,13 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 				break;
 		}
 	}
+}
+
+#pragma mark - Helpers
+
+- (LCUserPreferences *)userPreferences {
+    
+    return [LCUserPreferences sharedPreferences];
 }
 
 # pragma mark - NSUserNotificationCenterDelegate

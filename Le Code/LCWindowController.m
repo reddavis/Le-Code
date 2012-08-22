@@ -9,6 +9,7 @@
 #import "LCWindowController.h"
 #import "LCSelectPlaylistPanel.h"
 
+
 @interface LCWindowController ()
 
 @property (strong, nonatomic) LCMusicPlayerViewController *musicPlayerViewController;

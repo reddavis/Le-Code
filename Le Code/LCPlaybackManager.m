@@ -9,12 +9,15 @@
 #import "LCPlaybackManager.h"
 #import "NSMutableArray+Shuffle.h"
 #import "LCConstants.h"
+#import "LCUserPreferences.h"
+
 
 @interface LCPlaybackManager ()
 
 @property (strong, nonatomic) SPTrack *currentTrack;
 @property (strong, nonatomic) SPPlaylist *playlist;
 @property (strong, nonatomic) NSArray *tracks;
+@property (readonly, nonatomic) LCUserPreferences *userPreferences;
 
 - (NSArray *)tracksFromPlaylist;
 - (void)loadPlaylist;
@@ -58,13 +61,14 @@
 
 - (void)loadPlaylist {
     
-    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey]] inSession:self.playbackSession callback:^(SPPlaylist *playlist) {
+    [SPPlaylist playlistWithPlaylistURL:[NSURL URLWithString:self.userPreferences.selectedPlaylist] inSession:self.playbackSession callback:^(SPPlaylist *playlist) {
         self.playlist = playlist;
     }];
 }
 
-- (void) playlistChanged {
-	if (![self.playlist.spotifyURL.absoluteString isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:kPlaylistUserDefaultsKey]]){
+- (void)playlistChanged {
+    
+	if (![self.playlist.spotifyURL.absoluteString isEqualToString:self.userPreferences.selectedPlaylist]) {
 		[self pause];
 		self.playlist = nil;
 		self.tracks = nil;
@@ -160,6 +164,13 @@
     }
     
     return nextTrack;
+}
+
+#pragma mark - Helpers
+
+- (LCUserPreferences *)userPreferences {
+    
+    return [LCUserPreferences sharedPreferences];
 }
 
 #pragma mark - Observing

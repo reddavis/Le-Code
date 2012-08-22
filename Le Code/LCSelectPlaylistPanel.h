@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @interface LCSelectPlaylistPanel : NSWindowController
 
 - (IBAction)savePlaylist:(id)sender;

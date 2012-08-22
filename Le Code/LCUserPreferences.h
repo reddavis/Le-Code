@@ -13,6 +13,7 @@
 
 @property (readwrite, nonatomic) NSString *username;
 @property (readwrite, nonatomic) NSString *credential;
+@property (readwrite, nonatomic) NSString *selectedPlaylist;
 
 + (LCUserPreferences *)sharedPreferences;
 

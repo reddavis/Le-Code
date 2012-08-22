@@ -52,7 +52,6 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
 - (void)dealloc {
     
     [self.view removeTrackingRect:self.trackingTag];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -95,8 +94,9 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
 
 #pragma mark - Actions
 
-- (void) playPauseMediaKeyPressed {
-	if ([self.playButton isHidden]){
+- (void)playPauseMediaKeyPressed {
+    
+	if ([self.playButton isHidden]) {
 		[self pauseButtonClicked:nil];
 	} else {
 		[self playButtonClicked:nil];

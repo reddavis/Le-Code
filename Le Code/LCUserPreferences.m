@@ -18,6 +18,7 @@
 
 static NSString *const kUsernameKey = @"com.reddavis.lecodeUsername";
 static NSString *const kCredentialKey = @"com.reddavis.lecodeCredential";
+static NSString *const kSelectedPlaylistKey = @"com.lecode.playlist";
 
 
 @implementation LCUserPreferences
@@ -59,6 +60,19 @@ static NSString *const kCredentialKey = @"com.reddavis.lecodeCredential";
 - (NSString *)credential {
     
     return [self.userDefaults objectForKey:kCredentialKey];
+}
+
+#pragma mark - Selected Playlist
+
+- (void)setSelectedPlaylist:(NSString *)selectedPlaylist {
+    
+    [self.userDefaults setObject:selectedPlaylist forKey:kSelectedPlaylistKey];
+    [self.userDefaults synchronize];
+}
+
+- (NSString *)selectedPlaylist {
+    
+    return [self.userDefaults objectForKey:kSelectedPlaylistKey];
 }
 
 #pragma mark - Helpers
