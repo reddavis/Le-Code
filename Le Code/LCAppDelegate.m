@@ -13,7 +13,7 @@
 #import "LCUserPreferences.h"
 #import "SPMediaKeyTap.h"
 
-@interface LCAppDelegate ()
+@interface LCAppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) LCWindowController *windowController;
 @property (strong, nonatomic) LCLoginWindowController *loginWindowController;
@@ -61,6 +61,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
     self.loginWindowController = [[LCLoginWindowController alloc] initWithWindowNibName:kLoginWindowControllerNibName];
     [self.loginWindowController showWindow:nil];
 	[self registerMediaKeys];
+
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil){
+		[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+	}
 }
 
 #pragma mark - Actions
@@ -126,6 +130,13 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 				break;
 		}
 	}
+}
+
+# pragma mark - NSUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
+	// We do this so there is not a backlog of notifications in Notification Center
+	[center removeAllDeliveredNotifications];
 }
 
 @end
