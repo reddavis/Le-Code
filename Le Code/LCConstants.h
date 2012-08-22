@@ -12,5 +12,4 @@ extern NSString *const kLoggedInSuccessfulyNotification;
 extern NSString *const kPlayNextTrackNotification;
 extern NSString *const kPlayPauseNotification;
 extern NSString *const kPlayPreviousTrackNotification;
-extern NSString *const kPlaylistUserDefaultsKey;
 extern NSString *const kPlaylistChangedNotification;
