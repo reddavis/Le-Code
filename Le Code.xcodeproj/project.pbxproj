@@ -735,6 +735,7 @@
 		A4C4EF7315D1361E00EE162F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -747,6 +748,8 @@
 				INFOPLIST_FILE = "Le Code/Le Code-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${BUILT_PRODUCTS_DIR}\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -754,6 +757,7 @@
 		A4C4EF7415D1361E00EE162F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -766,6 +770,8 @@
 				INFOPLIST_FILE = "Le Code/Le Code-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${BUILT_PRODUCTS_DIR}\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
