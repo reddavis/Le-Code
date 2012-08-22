@@ -31,7 +31,7 @@
 @end
 
 
-@interface LCAppDelegate ()
+@interface LCAppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) LCWindowController *windowController;
 @property (strong, nonatomic) LCLoginWindowController *loginWindowController;
@@ -68,6 +68,10 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 	
 	if (!self.userPreferences.selectedPlaylist) {
         self.userPreferences.selectedPlaylist = @"spotify:user:reddavis:playlist:21YGHDyQ9QE6PP2sgno9jp";
+    }
+
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil) {
+		[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
 	}
 }
 
@@ -147,6 +151,13 @@ static NSString *const kLoginWindowControllerNibName = @"LCLoginWindowController
 - (LCUserPreferences *)userPreferences {
     
     return [LCUserPreferences sharedPreferences];
+}
+
+# pragma mark - NSUserNotificationCenterDelegate
+
+- (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
+	// We do this so there is not a backlog of notifications in Notification Center
+	[center removeAllDeliveredNotifications];
 }
 
 @end
