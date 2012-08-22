@@ -10,4 +10,4 @@ Note: To compile the app you will need to add your own appkey.c which you can ge
 
 ## Download
 
-Coming soon
+http://taylorswift.ly/Iw5z
