@@ -49,9 +49,10 @@
 }
 
 - (void)showSelectPlaylistPanel:(id)sender {
-    LCSelectPlaylistPanel *selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
+    
+    self.selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
 	
-	[[NSApplication sharedApplication] beginSheet:selectPlaylistPanel.window
+	[[NSApplication sharedApplication] beginSheet:self.selectPlaylistPanel.window
 								   modalForWindow:self.window
 									modalDelegate:self
 								   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
@@ -59,6 +60,7 @@
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    
 	[sheet orderOut:nil];
 }
 

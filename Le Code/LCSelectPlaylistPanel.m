@@ -14,12 +14,11 @@
 
 @interface LCSelectPlaylistPanel () <NSTextFieldDelegate>
 
+@property (readonly, nonatomic) SPSession *spotifySession;
 @property (strong, nonatomic) IBOutlet NSPopUpButton *playlistSelect;
 @property (readonly, nonatomic) LCUserPreferences *userPreferences;
-@property (strong, nonatomic) NSArray *userPlaylists;
-@property (assign, nonatomic) BOOL hasUnloadedPlaylists;
 
-- (NSArray *)recursivlyCollectPlaylistsFromArray:(NSArray *)playlistArray;
+- (void)windowDidBecomeKey:(NSNotification *)notification;
 
 @end
 
@@ -29,27 +28,23 @@
 #pragma mark -
 
 - (void)awakeFromNib {
-	
+	    
     [self.playlistSelect setEnabled:NO];
     [self.loadingSpinner startAnimation:nil];
     
-    self.hasUnloadedPlaylists = NO;
-    
-    NSLog(@"Is playlist container loaded? %@", [NSNumber numberWithBool:[SPSession sharedSession].userPlaylists.isLoaded]);
-    
-    if (![SPSession sharedSession].userPlaylists.isLoaded) {
-        NSLog(@"Not loaded");
-        [[SPSession sharedSession].userPlaylists addObserver:self forKeyPath:@"isLoaded" options:0 context:NULL];
-    } else {
+    [SPAsyncLoading waitUntilLoaded:self.spotifySession.userPlaylists timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+        
         [self setupPlaylistSelect];
-    }
+        [self.playlistSelect setEnabled:YES];
+        [self.loadingSpinner removeFromSuperview];
+    }];    
 }
 
 #pragma mark - Actions
 
 - (IBAction)savePlaylist:(id)sender {
 	
-	SPPlaylist *selectedPlaylist = [self.userPlaylists objectAtIndex:[self.playlistSelect indexOfSelectedItem]];
+	SPPlaylist *selectedPlaylist = [self.spotifySession.userPlaylists.flattenedPlaylists objectAtIndex:[self.playlistSelect indexOfSelectedItem]];
     self.userPreferences.selectedPlaylist = selectedPlaylist.spotifyURL.absoluteString;
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kPlaylistChangedNotification object:nil];
@@ -58,8 +53,7 @@
 
 - (IBAction)hidePanel:(id)sender {
     
-//	[[NSApplication sharedApplication] endSheet:self.window];
-    [self.window close];
+	[[NSApplication sharedApplication] endSheet:self.window];
 }
 
 #pragma mark - Helpers
@@ -69,43 +63,40 @@
     return [LCUserPreferences sharedPreferences];
 }
 
+- (SPSession *)spotifySession {
+    
+    return [SPSession sharedSession];
+}
+
+#pragma mark - Notifications
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    
+    [self setupPlaylistSelect];
+}
+
 #pragma mark - Observers
 
 - (void)setupPlaylistSelect {
+    
     NSString *selectedPlaylist = self.userPreferences.selectedPlaylist;
-    self.userPlaylists = [SPSession sharedSession].userPlaylists.flattenedPlaylists;
     
-    NSInteger playlistNumber = 0;
-    
-    for (SPPlaylist *playlist in self.userPlaylists) {
-        
-        NSLog(@"Is playlist loaded? %@", [NSNumber numberWithBool:playlist.isLoaded]);
-        
+    NSInteger notLoadedPlaylistNumber = 0;
+    for (SPPlaylist *playlist in self.spotifySession.userPlaylists.flattenedPlaylists) {
+                
         NSString *name = nil;
-        
-        if (!playlist.isLoaded) {
-            name = [NSString stringWithFormat: @"#%ld: Not loaded yet..", ++playlistNumber ];
-            self.hasUnloadedPlaylists = YES;
-        } else {
+        if (!playlist.isLoaded) {    
+            name = [NSString stringWithFormat: @"#%ld: Not loaded yet..", ++notLoadedPlaylistNumber ];
+        }
+        else {
             name = playlist.name;
         }
         
         [self.playlistSelect addItemWithTitle:name];
-        if ([[playlist.spotifyURL absoluteString] isEqualToString:selectedPlaylist]){
+        
+        if ([[playlist.spotifyURL absoluteString] isEqualToString:selectedPlaylist]) {
             [self.playlistSelect selectItemWithTitle:name];
         }
-    }
-    
-    [self.playlistSelect setEnabled:YES];
-    [self.loadingSpinner removeFromSuperview];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    NSLog(@"Observed: %@", keyPath);
-    
-    if ([keyPath isEqualToString:@"isLoaded"]) {
-        [self setupPlaylistSelect];
     }
 }
 
