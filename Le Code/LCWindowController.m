@@ -49,11 +49,9 @@
 }
 
 - (void)showSelectPlaylistPanel:(id)sender {
-	if (self.selectPlaylistPanel == nil){
-		self.selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
-	}
+    LCSelectPlaylistPanel *selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
 	
-	[[NSApplication sharedApplication] beginSheet:self.selectPlaylistPanel.window
+	[[NSApplication sharedApplication] beginSheet:selectPlaylistPanel.window
 								   modalForWindow:self.window
 									modalDelegate:self
 								   didEndSelector:@selector(sheetDidEnd:returnCode:contextInfo:)
