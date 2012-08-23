@@ -79,7 +79,7 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
         trackNameSize.width = self.trackTitleTextField.frame.size.width;
     }
     
-    self.trackTimeTextField.frame = CGRectMake(trackNameSize.width+self.trackTitleTextField.frame.origin.x+kTrackTimeTextFieldLeftPadding, self.trackTimeTextField.frame.origin.y, self.trackTimeTextField.frame.size.width, self.trackTimeTextField.frame.size.height);
+    self.trackTimeTextField.frame = CGRectMake(floorf(trackNameSize.width+self.trackTitleTextField.frame.origin.x+kTrackTimeTextFieldLeftPadding), self.trackTimeTextField.frame.origin.y, self.trackTimeTextField.frame.size.width, self.trackTimeTextField.frame.size.height);
     
     // Fade everything back in
     [self.trackTimeTextField.layer addAnimation:fadeInAnimation forKey:@"opacity"];
