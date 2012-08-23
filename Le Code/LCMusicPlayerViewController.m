@@ -30,7 +30,7 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
 #pragma mark -
 
 - (void)awakeFromNib {
-    
+        
     LCStyledView *view = (LCStyledView *)self.view;
     view.backgroundColor = [NSColor blackColor];
     
