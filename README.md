@@ -13,7 +13,7 @@ Note: To compile the app you will need to add your own appkey.c which you can ge
 
 ## Download
 
-http://taylorswift.ly/Iw5z
+https://github.com/reddavis/Le-Code/downloads
 
 ## Thanks
 
