@@ -107,7 +107,7 @@
     [self.musicPlayerViewController.pauseButton setHidden:NO];
     [self.musicPlayerViewController.playButton setHidden:YES];
 	
-	if (NSClassFromString(@"NSUserNotificationCenter") != nil){	
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil) {	
 		NSUserNotification *notification = [[NSUserNotification alloc] init];
 		[notification setHasActionButton:NO];
 		[notification setTitle:track.name];
