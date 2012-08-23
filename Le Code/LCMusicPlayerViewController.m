@@ -34,6 +34,8 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     LCStyledView *view = (LCStyledView *)self.view;
     view.backgroundColor = [NSColor blackColor];
     
+    self.trayView.backgroundImage = [NSImage imageNamed:@"bar"];
+    
     [self.spinner startAnimation:nil];
     
     [self.trackTitleTextField setHidden:YES];
@@ -44,6 +46,7 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     
     [self.pauseButton setAlphaValue:0.0];
     [self.playButton setAlphaValue:0.0];
+    [self.trayView setAlphaValue:0.0];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(skipButtonClicked:) name:kPlayNextTrackNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playPauseMediaKeyPressed) name:kPlayPauseNotification object:nil];
@@ -163,6 +166,7 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     CABasicAnimation *fadeInAnimation = [self buildFadeInAnimationWithDelay:0.5];
     [self.playButton.layer addAnimation:fadeInAnimation forKey:@"fadeIn"];
     [self.pauseButton.layer addAnimation:fadeInAnimation forKey:@"fadeIn"];
+    [self.trayView.layer addAnimation:fadeInAnimation forKey:@"fadeIn"];
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
@@ -170,6 +174,7 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     CABasicAnimation *fadeOutAnimation = [self buildFadeOutAnimationWithDelay:0.5];
     [self.playButton.layer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
     [self.pauseButton.layer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
+    [self.trayView.layer addAnimation:fadeOutAnimation forKey:@"fadeOut"];
 }
 
 @end

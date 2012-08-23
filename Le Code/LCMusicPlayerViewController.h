@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet NSTextField *trackTitleTextField;
 @property (weak, nonatomic) IBOutlet NSTextField *bandNameTextField;
 @property (weak, nonatomic) IBOutlet NSTextField *trackTimeTextField;
+@property (weak, nonatomic) IBOutlet LCStyledView *trayView;
 
 - (IBAction)pauseButtonClicked:(id)sender;
 - (IBAction)playButtonClicked:(id)sender;
