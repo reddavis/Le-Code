@@ -68,10 +68,10 @@
     self.userPreferences.selectedPlaylist = selectedPlaylist.spotifyURL.absoluteString;
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kPlaylistChangedNotification object:nil];
-	[self hidePanel];
+	[self hidePanel:nil];
 }
 
-- (void)hidePanel {
+- (IBAction)hidePanel:(id)sender {
     
 	[[NSApplication sharedApplication] endSheet:self.window];
 }

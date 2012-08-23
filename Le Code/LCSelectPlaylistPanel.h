@@ -12,5 +12,6 @@
 @interface LCSelectPlaylistPanel : NSWindowController
 
 - (IBAction)savePlaylist:(id)sender;
+- (IBAction)hidePanel:(id)sender;
 
 @end
