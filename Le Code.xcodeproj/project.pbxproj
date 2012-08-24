@@ -741,12 +741,15 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Le_Code-eghsnudufcqyqpdyrlpnjvfzfdef/Build/Products/Debug\"",
-					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"",
+					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Le Code/Le Code-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Le Code/Le Code-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				USER_HEADER_SEARCH_PATHS = "\"${BUILT_PRODUCTS_DIR}\"/**";
@@ -763,12 +766,15 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/Le_Code-eghsnudufcqyqpdyrlpnjvfzfdef/Build/Products/Debug\"",
-					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"",
+					"\"$CONFIGURATION_BUILD_DIR/CocoaLibSpotify.framework/Versions/Frameworks\"/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Le Code/Le Code-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Le Code/Le Code-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				USER_HEADER_SEARCH_PATHS = "\"${BUILT_PRODUCTS_DIR}\"/**";

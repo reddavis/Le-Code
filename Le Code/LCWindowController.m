@@ -49,9 +49,8 @@
 }
 
 - (void)showSelectPlaylistPanel:(id)sender {
-	if (self.selectPlaylistPanel == nil){
-		self.selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
-	}
+    
+    self.selectPlaylistPanel = [[LCSelectPlaylistPanel alloc] initWithWindowNibName:@"LCSelectPlaylistPanel"];
 	
 	[[NSApplication sharedApplication] beginSheet:self.selectPlaylistPanel.window
 								   modalForWindow:self.window
@@ -61,6 +60,7 @@
 }
 
 - (void)sheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    
 	[sheet orderOut:nil];
 }
 
@@ -99,7 +99,7 @@
 }
 
 - (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrack:(SPTrack *)track {
-    
+        
     [self.musicPlayerViewController.spinner startAnimation:nil];
     
     [self.musicPlayerViewController updateViewWithTrack:track];
@@ -107,7 +107,7 @@
     [self.musicPlayerViewController.pauseButton setHidden:NO];
     [self.musicPlayerViewController.playButton setHidden:YES];
 	
-	if (NSClassFromString(@"NSUserNotificationCenter") != nil){	
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil) {	
 		NSUserNotification *notification = [[NSUserNotification alloc] init];
 		[notification setHasActionButton:NO];
 		[notification setTitle:track.name];
@@ -115,6 +115,17 @@
 		
 		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 	}
+    
+    [SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+        
+        NSDockTile *dockTile = [NSApp dockTile];
+        CGRect iconRect = CGRectMake(0, 0, dockTile.size.width, dockTile.size.height);
+        
+        NSImageView *dockIconView = [[NSImageView alloc] initWithFrame:CGRectInset(iconRect, 2, 2)];
+        dockIconView.image = track.album.cover.image;
+        dockTile.contentView = dockIconView;
+        [dockTile display];
+    }];
 }
 
 - (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrackPosition:(NSTimeInterval)timeInterval {

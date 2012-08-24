@@ -15,7 +15,7 @@
     
     [self setWantsLayer:YES];
     self.layer.masksToBounds = YES;
-    self.layer.cornerRadius = 10.0;
+    self.layer.cornerRadius = 3.0;
 }
 
 @end

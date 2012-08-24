@@ -11,6 +11,9 @@
 
 @interface LCSelectPlaylistPanel : NSWindowController
 
+@property (weak, nonatomic) IBOutlet NSProgressIndicator *loadingSpinner;
+
 - (IBAction)savePlaylist:(id)sender;
+- (IBAction)hidePanel:(id)sender;
 
 @end

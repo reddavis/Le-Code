@@ -14,10 +14,11 @@
 
 @interface LCSelectPlaylistPanel () <NSTextFieldDelegate>
 
+@property (readonly, nonatomic) SPSession *spotifySession;
 @property (strong, nonatomic) IBOutlet NSPopUpButton *playlistSelect;
 @property (readonly, nonatomic) LCUserPreferences *userPreferences;
 
-- (NSArray *)recursivlyCollectPlaylistsFromArray:(NSArray *)playlistArray;
+- (void)windowDidBecomeKey:(NSNotification *)notification;
 
 @end
 
@@ -27,51 +28,30 @@
 #pragma mark -
 
 - (void)awakeFromNib {
-	
-	NSString *selectedPlaylist = self.userPreferences.selectedPlaylist;
-	NSArray *userPlaylists = [self recursivlyCollectPlaylistsFromArray:[SPSession sharedSession].userPlaylists.playlists];
+	    
+    [self.playlistSelect setEnabled:NO];
+    [self.loadingSpinner startAnimation:nil];
     
-	for (SPPlaylist *playlist in userPlaylists) {
+    [SPAsyncLoading waitUntilLoaded:self.spotifySession.userPlaylists timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
         
-		[self.playlistSelect addItemWithTitle:playlist.name];
-		if ([[playlist.spotifyURL absoluteString] isEqualToString:selectedPlaylist]){
-			[self.playlistSelect selectItemWithTitle:playlist.name];
-		}
-	}
-}
-
-#pragma mark -
-
-- (NSArray *)recursivlyCollectPlaylistsFromArray:(NSArray *)playlistArray {
-    
-    NSMutableArray *mutablePlaylistArray = [NSMutableArray array];
-    for (id playlistObject in playlistArray) {
-        
-        if ([playlistObject isKindOfClass:[SPPlaylistFolder class]]) {
-            
-            SPPlaylistFolder *playlistFolder = (SPPlaylistFolder *)playlistObject;
-            [mutablePlaylistArray addObjectsFromArray:[self recursivlyCollectPlaylistsFromArray:playlistFolder.playlists]];
-        }
-        else if ([playlistObject isKindOfClass:[SPPlaylist class]]) {
-            [mutablePlaylistArray addObject:playlistObject];
-        }
-    }
-    
-    return [NSArray arrayWithArray:mutablePlaylistArray];
+        [self setupPlaylistSelect];
+        [self.playlistSelect setEnabled:YES];
+        [self.loadingSpinner removeFromSuperview];
+    }];    
 }
 
 #pragma mark - Actions
 
 - (IBAction)savePlaylist:(id)sender {
 	
-	SPPlaylist *selectedPlaylist = [[[[SPSession sharedSession] userPlaylists] playlists] objectAtIndex:[self.playlistSelect indexOfSelectedItem]];
+	SPPlaylist *selectedPlaylist = [self.spotifySession.userPlaylists.flattenedPlaylists objectAtIndex:[self.playlistSelect indexOfSelectedItem]];
     self.userPreferences.selectedPlaylist = selectedPlaylist.spotifyURL.absoluteString;
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:kPlaylistChangedNotification object:nil];
-	[self hidePanel];
+	[self hidePanel:nil];
 }
 
-- (void)hidePanel {
+- (IBAction)hidePanel:(id)sender {
     
 	[[NSApplication sharedApplication] endSheet:self.window];
 }
@@ -81,6 +61,43 @@
 - (LCUserPreferences *)userPreferences {
     
     return [LCUserPreferences sharedPreferences];
+}
+
+- (SPSession *)spotifySession {
+    
+    return [SPSession sharedSession];
+}
+
+#pragma mark - Notifications
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    
+    [self setupPlaylistSelect];
+}
+
+#pragma mark - Observers
+
+- (void)setupPlaylistSelect {
+    
+    NSString *selectedPlaylist = self.userPreferences.selectedPlaylist;
+    
+    NSInteger notLoadedPlaylistNumber = 0;
+    for (SPPlaylist *playlist in self.spotifySession.userPlaylists.flattenedPlaylists) {
+                
+        NSString *name = nil;
+        if (!playlist.isLoaded) {    
+            name = [NSString stringWithFormat: @"#%ld: Not loaded yet..", ++notLoadedPlaylistNumber ];
+        }
+        else {
+            name = playlist.name;
+        }
+        
+        [self.playlistSelect addItemWithTitle:name];
+        
+        if ([[playlist.spotifyURL absoluteString] isEqualToString:selectedPlaylist]) {
+            [self.playlistSelect selectItemWithTitle:name];
+        }
+    }
 }
 
 @end
