@@ -116,16 +116,18 @@
 		[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 	}
     
-    [SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-        
-        NSDockTile *dockTile = [NSApp dockTile];
-        CGRect iconRect = CGRectMake(0, 0, dockTile.size.width, dockTile.size.height);
-        
-        NSImageView *dockIconView = [[NSImageView alloc] initWithFrame:CGRectInset(iconRect, 2, 2)];
-        dockIconView.image = track.album.cover.image;
-        dockTile.contentView = dockIconView;
-        [dockTile display];
-    }];
+	if (track.album.cover != nil){
+		[SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+			
+			NSDockTile *dockTile = [NSApp dockTile];
+			CGRect iconRect = CGRectMake(0, 0, dockTile.size.width, dockTile.size.height);
+			
+			NSImageView *dockIconView = [[NSImageView alloc] initWithFrame:CGRectInset(iconRect, 2, 2)];
+			dockIconView.image = track.album.cover.image;
+			dockTile.contentView = dockIconView;
+			[dockTile display];
+		}];
+	}
 }
 
 - (void)playbackManager:(LCPlaybackManager *)playbackManager didChangeTrackPosition:(NSTimeInterval)timeInterval {
