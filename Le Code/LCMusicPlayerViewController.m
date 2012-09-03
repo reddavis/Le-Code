@@ -88,11 +88,13 @@ static CGFloat const kTrackTimeTextFieldLeftPadding = 10.0;
     [self.trackTimeTextField.layer addAnimation:fadeInAnimation forKey:@"opacity"];
     [self.bandNameTextField.layer addAnimation:fadeInAnimation forKey:@"opacity"];
     
-    [SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
-        
-        self.albumArtworkImageView.image = track.album.cover.image;
-        [self.albumArtworkImageView.layer addAnimation:fadeInAnimation forKey:@"opacity"];
-    }];
+	if (track.album.cover != nil){
+		[SPAsyncLoading waitUntilLoaded:track.album.cover timeout:5.0 then:^(NSArray *loadedItems, NSArray *notLoadedItems) {
+			
+			self.albumArtworkImageView.image = track.album.cover.image;
+			[self.albumArtworkImageView.layer addAnimation:fadeInAnimation forKey:@"opacity"];
+		}];
+	}
 }
 
 #pragma mark - Actions
